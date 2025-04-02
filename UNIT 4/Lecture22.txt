@@ -1,0 +1,152 @@
+Lecture 22
+Q=1
+Patten
+
+class Solution {
+   static class PatternPrinter {
+       private int rows;
+       public PatternPrinter(int rows) {
+           this.rows = rows;
+       }
+       public void printPattern() {
+           for (int i = 1; i <= rows; i++) {
+               for (int j = 1; j <= rows - i; j++) {
+                   System.out.print(" ");
+               }
+               for (int k = 1; k <= i; k++) {
+                   System.out.print(k + " ");
+               }
+               System.out.println();
+           }
+       }
+   }
+}
+
+Q=2
+Eleven plus
+
+class Solution {
+   static class StringReversalUtils {
+       public String reverseWithSpecialChars(String input) {
+           char[] charArray = input.toCharArray();
+           int left = 0;
+           int right = charArray.length - 1;
+           while (left < right) {
+               if (!Character.isLetterOrDigit(charArray[left])) {
+                   left++;
+               } 
+               else if (!Character.isLetterOrDigit(charArray[right])) {
+                   right--;
+               } 
+               else {
+                   char temp = charArray[left];
+                   charArray[left] = charArray[right];
+                   charArray[right] = temp;
+                   left++;
+                   right--;
+               }
+           }
+           return new String(charArray);
+       }
+   }
+}
+
+Q=3
+
+2.   3
+
+class Solution {
+   static class PowerUtils {
+       public int calculatePower(int base, int exponent) {
+           if (exponent == 0) {
+               return 1;
+           } else {
+               return base * calculatePower(base, exponent - 1);
+           }
+       }
+   }
+}
+
+Q=4
+Hello
+
+class Solution {
+  class StringSorter {
+      private String inputString;
+      
+      public StringSorter(String inputString) {
+          this.inputString = inputString;
+      }
+      
+      public String alphabetize() {
+          Alphabetizer alphabetizer = new Alphabetizer();
+          return alphabetizer.sort();
+      }
+      
+      private class Alphabetizer {
+          public String sort() {
+              char[] charArray = inputString.toCharArray();
+              Arrays.sort(charArray);
+              return new String(charArray);
+          }
+      }
+  }
+}
+
+Q=5
+John
+
+class Solution {
+    class GymMember {
+        private String name;
+        private Progress progress;
+        
+        public GymMember(String name, int initialWeight, int currentWeight) {
+            this.name = name;
+            this.progress = new Progress();
+            recordProgress(initialWeight, currentWeight);
+        }
+        
+        public void recordProgress(int initialWeight, int currentWeight) {
+            progress.recordProgress(initialWeight, currentWeight);
+        }
+        
+        public double getImprovementPercentage() {
+            return progress.calculateImprovementPercentage();
+        }
+        
+        private class Progress {
+            private int initialWeight;
+            private int currentWeight;
+            
+            public void recordProgress(int initialWeight, int currentWeight) {
+                this.initialWeight = initialWeight;
+                this.currentWeight = currentWeight;
+            }
+            
+            public double calculateImprovementPercentage() {
+                return ((double) (currentWeight - initialWeight) / initialWeight) * 100;
+            }
+        }
+    }
+}
+
+Q=6
+35.99.  2.5
+
+class Bookstore {
+    class Textbook {
+        private double originalPrice;
+        private double discountPercentage;
+        
+        Textbook(double originalPrice, double discountPercentage) {
+            this.originalPrice = originalPrice;
+            this.discountPercentage = discountPercentage;
+        }
+        
+        double calculateSalePrice() {
+            double discountAmount = (originalPrice * discountPercentage) / 100;
+            return originalPrice - discountAmount;
+        }
+    }
+}
