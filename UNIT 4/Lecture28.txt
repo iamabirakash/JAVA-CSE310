@@ -1,0 +1,219 @@
+Lecture28
+Q=1
+5.3
+Result: 7.9
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            double num1 = Double.parseDouble(scanner.nextLine());
+            double num2 = Double.parseDouble(scanner.nextLine());
+
+            char operation = scanner.nextLine().charAt(0);
+
+            double result = performOperation(num1, num2, operation);
+
+            System.out.printf("Result: %.1f" ,result);
+        } catch (NumberFormatException ex) {
+            System.out.print("Invalid number format: " + ex.getMessage());
+        } catch (ArithmeticException ex) {
+            System.out.print("Arithmetic exception: " + ex.getMessage());
+        } catch (StringIndexOutOfBoundsException ex) {
+            System.out.print("Invalid operation input: " + ex.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+
+    private static double performOperation(double num1, double num2, char operation) {
+        switch (operation) {
+            case '+':
+                return num1 + num2;
+            case '-':
+                return num1 - num2;
+            case '*':
+                return num1 * num2;
+            case '/':
+                if (num2 == 0) {
+                    throw new ArithmeticException("Cannot divide by zero.");
+                }
+                return num1 / num2;
+            default:
+                throw new StringIndexOutOfBoundsException("Invalid operation: " + operation);
+        }
+    }
+
+Q=2
+7456984562
+Valid
+
+public static void validatePhoneNumber(String phoneNumber) {
+       if (!phoneNumber.matches("\\d+")) {
+           throw new InputMismatchException("Input mismatch. Please enter a valid 10-digit phone number.");
+       }
+       if (phoneNumber.length() != 10) {
+           throw new IllegalArgumentException("Invalid phone number: Must be a 10-digit number.");
+       }
+   }
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+       try {
+           String phoneNumber = scanner.nextLine();
+           validatePhoneNumber(phoneNumber);
+           System.out.print("Valid");
+       } catch (InputMismatchException e) {
+           System.out.print("Error: " + e.getMessage());
+       } catch (IllegalArgumentException e) {
+           System.out.print("Error: " + e.getMessage());
+       } finally {
+           scanner.close();
+       }
+       
+   }
+
+Q=3
+5
+120
+
+   public static long calculateFactorial(int n) {
+       if (n < 0) {
+           throw new IllegalArgumentException("Input must be non-negative");
+       }
+       return computeFactorial(n);
+   }
+
+   private static long computeFactorial(int n) {
+       if (n == 0 || n == 1) {
+           return 1;
+       } else {
+           return n * computeFactorial(n - 1);
+       }
+   }
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+       try {
+           int number = scanner.nextInt();
+           long factorial = calculateFactorial(number);
+           System.out.println(factorial);
+       } catch (IllegalArgumentException e) {
+           System.out.println("Error: " + e.getMessage());
+       } catch (InputMismatchException e) {
+           System.out.println("Error: Input must be a valid integer.");
+       } catch (Exception e) {
+           System.out.println("An unexpected error occurred: " + e.getMessage());
+       } finally {
+           scanner.close();
+       }
+   }
+
+Q=4
+Alice
+85
+Grade for Alice: 85
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            String studentName = scanner.nextLine();
+            int grade = Integer.parseInt(scanner.nextLine());
+
+            validateGrade(grade);
+
+            System.out.println("Grade for " + studentName + ": " + grade);
+            
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid grade: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+
+private static void validateGrade(int grade) {
+        if (grade < 0 || grade > 100) {
+            throw new IllegalArgumentException("Invalid grade: " + grade);
+        }
+    }
+
+Q=5
+153
+153 is Armstrong number
+
+public static boolean isArmstrongNumber(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Input number must be non-negative");
+        }
+
+        int originalNumber = number;
+        int numDigits = String.valueOf(number).length();
+        int sum = 0;
+
+        while (number > 0) {
+            int digit = number % 10;
+            sum += Math.pow(digit, numDigits);
+            number /= 10;
+        }
+
+        return sum == originalNumber;
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            int number = scanner.nextInt();
+
+            boolean isArmstrong = isArmstrongNumber(number);
+            System.out.printf("%d is %sArmstrong number.", number, isArmstrong ? "" : "not ");
+        } catch (IllegalArgumentException e) {
+            System.out.print("Error: " + e.getMessage());
+        } catch (java.util.InputMismatchException e) {
+            System.out.print("Error: Input must be a valid integer.");
+        } finally {
+            scanner.close();
+        }
+    }
+
+Q=6
+12345
+9
+
+   public static int getPositiveInteger(Scanner scanner) {
+       int n = scanner.nextInt();
+       if (n <= 0) {
+           throw new IllegalArgumentException("Input must be a positive integer.");
+       }
+       return n;
+   }
+
+   public static int getSquareOfCentralDigit(int n) {
+       String numberString = Integer.toString(n);
+       if (numberString.length() == 5) {
+           int centralIndex = numberString.length() / 2;
+           char centralDigit = numberString.charAt(centralIndex);
+           int digit = Character.getNumericValue(centralDigit);
+           return digit * digit;
+       } else {
+           throw new IllegalArgumentException("Input must be a 5-digit number.");
+       }
+   }
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+       try {
+           int n = getPositiveInteger(scanner);
+           int square = getSquareOfCentralDigit(n);
+           System.out.print(square);
+       } catch (InputMismatchException e) {
+           System.out.print("Error: " + e.getMessage());
+       } catch (IllegalArgumentException e) {
+           System.out.print("Error: " + e.getMessage());
+       } finally {
+           scanner.close();
+       }
+   }

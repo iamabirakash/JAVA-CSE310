@@ -1,0 +1,100 @@
+Lecture29
+Q=1
+John
+Invalid Username: Username must be at least 5 characters long
+
+class InvalidUsernameException extends Exception {
+    public InvalidUsernameException(String message) {
+        super(message);
+    }
+}
+
+class UsernameValidator {
+    public static void validateUsername(String username) throws InvalidUsernameException {
+        if (username.contains(" ")) {
+            throw new InvalidUsernameException("Username cannot contain spaces");
+        }
+
+        if (username.length() < 5) {
+            throw new InvalidUsernameException("Username must be at least 5 characters long");
+        }
+    }
+}
+
+Q=2
+myfile123
+Valid file name
+
+class InvalidFileNameException extends Exception {
+    public InvalidFileNameException(String message) {
+        super(message);
+    }
+}
+
+class FileNameValidator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            
+            String fileName = scanner.nextLine();
+
+            validateFileName(fileName);
+
+            System.out.println("Valid file name");
+        } catch (InvalidFileNameException e) {
+           
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+           
+            scanner.close();
+        }
+    }
+
+    private static void validateFileName(String fileName) throws InvalidFileNameException {
+        if (!fileName.matches("^[a-zA-Z0-9]{3,}$")) {
+            throw new InvalidFileNameException("Invalid file name. It must be alphanumeric and have a minimum length of 3 characters.");
+        }
+    }
+
+Q=3
+ABCD123456
+Coupon code applied successfully!
+
+class InvalidCouponException extends Exception {
+    public InvalidCouponException(String message) {
+        super(message);
+    }
+}
+
+class CouponCodeValidator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+         
+            String couponCode = scanner.nextLine();
+
+            validateCouponCode(couponCode);
+
+            System.out.println("Coupon code applied successfully!");
+        } catch (InvalidCouponException e) {
+ 
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+      
+            scanner.close();
+        }
+    }
+
+    private static void validateCouponCode(String couponCode) throws InvalidCouponException {
+    
+        if (!couponCode.matches("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z0-9]{10}$")) {
+         
+            if (couponCode.length() != 10) {
+                throw new InvalidCouponException("Invalid coupon code length. It must be exactly 10 characters.");
+            } else {
+                throw new InvalidCouponException("Invalid coupon code format. It must contain at least one alphabet and one digit.");
+            }
+        }
+    }

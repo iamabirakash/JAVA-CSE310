@@ -1,0 +1,131 @@
+Lecture25
+Q=1
+15/08/1947
+15/08/2024
+
+class AgeCalculator {
+    
+    public int calculateAge(String birthDateStr, String currentDateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        LocalDate birthDate = LocalDate.parse(birthDateStr, formatter);
+        LocalDate currentDate = LocalDate.parse(currentDateStr, formatter);
+        int age = currentDate.getYear() - birthDate.getYear();
+        if (currentDate.getMonthValue() < birthDate.getMonthValue() || 
+            (currentDate.getMonthValue() == birthDate.getMonthValue() && 
+             currentDate.getDayOfMonth() < birthDate.getDayOfMonth())) {
+            age--;
+        }
+        
+        return age;
+    }
+}
+
+Q=2
+15/08/1947
+
+class DateFormatConverter {
+    public String convertDateFormat(String inputDate) {
+   
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate date = LocalDate.parse(inputDate, inputFormatter);
+        return date.format(outputFormatter);
+    }
+}
+
+Q=3
+25/01/2024
+05/02/2024
+
+class DateUtil {
+   public static String calculateDuration(LocalDate startDate, LocalDate endDate) {
+       Period period = Period.between(startDate, endDate);
+       
+       int years = period.getYears();
+       int months = period.getMonths();
+       int days = period.getDays();
+      
+       months = months + (years * 12);
+       
+       return months + " months and " + days + " days";
+   }
+}
+
+Q=4
+01/01/2023
+07/01/2023
+
+class DateUtil {
+   public static int calculateWorkingDays(LocalDate startDate, LocalDate endDate) {
+       int totalDays = 0;
+       LocalDate currentDate = startDate;
+       
+       while (!currentDate.isAfter(endDate)) {
+           if (currentDate.getDayOfWeek() != DayOfWeek.SATURDAY && 
+               currentDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+               totalDays++;
+           }
+           currentDate = currentDate.plusDays(1);
+       }
+       
+       return totalDays;
+   }
+}
+
+Q=5
+15/01/2024
+01/01/2024
+31/01/2024
+
+class DateValidator {
+   public static String validateDate(String checkInDate, String startDateStr, String endDateStr) {
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+     
+       LocalDate bookingDate = LocalDate.parse(checkInDate.trim(), formatter);
+       LocalDate startDate = LocalDate.parse(startDateStr.trim(), formatter);
+       LocalDate endDate = LocalDate.parse(endDateStr.trim(), formatter);
+       
+       if (bookingDate.isBefore(startDate) || bookingDate.isAfter(endDate)) {
+           return checkInDate + " is outside the valid booking range";
+       }
+       
+       return checkInDate + " is a valid booking date";
+   }
+   
+   public static boolean isValidFormat(String date) {
+      
+       if (!date.matches("\\d{2}/\\d{2}/\\d{4}")) {
+           return false;
+       }
+       return true;
+   }
+}
+
+Q=6
+15/08/2024
+
+class DateUtil {
+   public static String processDate(LocalDate date) {
+       int year = date.getYear();
+       int month = date.getMonthValue();
+       
+       if (year % 2 == 0) {
+           YearMonth yearMonth = YearMonth.of(year, month);
+           return "The month " + date.getMonth() + " in the year " + year + 
+                  " has " + yearMonth.lengthOfMonth() + " days";
+       } 
+       else if (year % 5 == 0) {
+           int nextMonth = month == 12 ? 1 : month + 1;
+           int nextMonthYear = month == 12 ? year + 1 : year;
+           YearMonth nextYearMonth = YearMonth.of(nextMonthYear, nextMonth);
+           return "The next month " + nextYearMonth.getMonth() + " in the year " + 
+                  nextMonthYear + " has " + nextYearMonth.lengthOfMonth() + " days";
+       } 
+       else {
+           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+           return date.format(formatter) + " is invalid";
+       }
+   }
+}

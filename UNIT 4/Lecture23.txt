@@ -1,0 +1,159 @@
+Lecture 23
+Q=1
+Milk 4
+
+class GroceryMonitor {
+public void monitorExpiryDates(String[] items, int[] daysRemaining) {
+        class ExpiryChecker {
+            void checkExpiryDates(String[] items, int[] daysRemaining) {
+                for (int i = 0; i < items.length; i++) {
+                    String itemName = items[i];
+                    int remainingDays = daysRemaining[i];
+
+                    if (remainingDays <= 7) {
+                        System.out.println(itemName + " is nearing its expiry date. Only " + remainingDays + " days left");
+                    } 
+                }
+            }
+        }
+
+        ExpiryChecker checker = new ExpiryChecker();
+        checker.checkExpiryDates(items, daysRemaining);
+    }
+
+Q=2
+GPA
+
+class GPAImprovementCalculator {
+    private double currentGPA;
+
+    public GPAImprovementCalculator(double currentGPA) {
+        this.currentGPA = currentGPA;
+    }
+
+    public double calculateGradeRequirements(double targetGPA) {
+        class GradeRequirementCalculator {
+            private double requiredGPA;
+
+            public GradeRequirementCalculator() {
+                calculateRequirements();
+            }
+
+            private void calculateRequirements() {
+                requiredGPA = (targetGPA + currentGPA) / 2;
+            }
+
+            public double getRequiredGPA() {
+                return requiredGPA;
+            }
+        }
+
+        GradeRequirementCalculator requirements = new GradeRequirementCalculator();
+        return requirements.getRequiredGPA();
+    }
+}
+
+Q=3
+Find Vowel
+
+public class Main {
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String inputString = scanner.nextLine();
+        scanner.close();
+
+        class VowelCalculator {
+            int countVowels() {
+                int vowelCount = 0;
+                for (int i = 0; i < inputString.length(); i++) {
+                    char c = inputString.charAt(i);
+                    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+                        c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+                        vowelCount++;
+                    }
+                }
+                return vowelCount;
+            }
+        }
+
+        VowelCalculator calculator = new VowelCalculator();
+        int result = calculator.countVowels();
+
+        System.out.println(result);
+    }
+
+Q=4
+Energy cost 
+
+interface EnergyCostCalculatorInterface {
+    double calculateCost(int usageHours, int hourType);
+}
+class EnergyCalculator {
+    public static double calculateEnergyCost(int usageHours, int hourType) {
+
+        EnergyCostCalculatorInterface calculator = new EnergyCostCalculatorInterface() {
+    
+            public double calculateCost(int usageHours, int hourType) {
+                double cost;
+                if (hourType == 1) {
+                    cost = usageHours * 0.15;
+                } else if (hourType == 2) {
+                    cost = usageHours * 0.08;
+                } else {
+                    cost = 0.0;
+                    System.out.println("Invalid input");
+                }
+                return cost;
+            }
+        };
+        
+
+        return calculator.calculateCost(usageHours, hourType);
+    }
+}
+
+Q=5
+15000  0.75
+
+interface DistanceConverter {
+    double convertStepsToDistance(int steps, double strideLength);
+}
+class DistanceCalculator {
+    public double calculateDistance(int steps, double strideLength) {
+        return steps * strideLength / 1000; 
+    }
+}
+class StepDistanceConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfSteps = scanner.nextInt();
+        double strideLength = scanner.nextDouble(); 
+
+        DistanceCalculator calculator = new DistanceCalculator();
+
+        DistanceConverter distanceConverter = new DistanceConverter() {
+            public double convertStepsToDistance(int steps, double strideLength) {
+                return calculator.calculateDistance(steps, strideLength);
+            }
+        };
+
+        double distance = distanceConverter.convertStepsToDistance(numberOfSteps, strideLength);
+
+        System.out.printf("%.2f", distance);
+
+        scanner.close();
+    }
+
+Q=6
+0.05.  12
+
+class APYCalculator {
+    public APYCalculatorInterface apyCalculator = new APYCalculatorInterface() {
+    
+        public double calculateAPY(double interestRate, int compoundingFrequency) {
+            
+            return Math.pow(1 + interestRate / compoundingFrequency, compoundingFrequency) - 1;
+        }
+    };
+}

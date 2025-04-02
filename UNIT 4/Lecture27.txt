@@ -1,0 +1,490 @@
+Lecture27
+Q=1
+Laptop
+899.99
+
+class Product {
+   private String name;
+   private double price;  
+   private int quantity;
+   
+   public Product(String name, double price, int quantity) {
+       this.name = name;
+       this.price = price;
+       this.quantity = quantity;
+   }
+   
+   public void isValidProduct(String name, double price, int quantity) {
+       try {
+           if (name.length() > 25) {
+               throw new IllegalArgumentException("Product name should be 25 characters or less");
+           }
+           if (price <= 0) {
+               throw new IllegalArgumentException("Price should be a positive value");
+           }
+           if (quantity < 0) {
+               throw new IllegalArgumentException("Quantity should be a non-negative integer");
+           }
+           System.out.println("Product details are valid");
+       } catch (IllegalArgumentException e) {
+           System.out.println(e.getMessage());
+       }
+   }
+}
+
+Q=2
+The great gatsby
+
+class Book {
+    private String title;
+    private String author;
+    private int publicationYear;
+
+    public Book(String title, String author, int publicationYear) throws IllegalArgumentException {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+
+        validateTitle();
+        validateAuthor();
+        validatePublicationYear();
+    }
+
+    private void validateTitle() throws IllegalArgumentException {
+        if (title.isEmpty()) {
+            throw new IllegalArgumentException("Invalid title: Title should not be empty");
+        }
+    }
+
+    private void validateAuthor() throws IllegalArgumentException {
+        if (author.isEmpty()) {
+            throw new IllegalArgumentException("Invalid author: Author should not be empty");
+        }
+    }
+
+    private void validatePublicationYear() throws IllegalArgumentException {
+        if (publicationYear <= 0) {
+            throw new IllegalArgumentException("Invalid publication year: Publication year should be a positive integer");
+        }
+    }
+
+    public void addBook() {
+        System.out.print("Book added successfully");
+    }
+}
+
+Q=3
+945
+946
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] userIDs;
+        try {
+            int size = Integer.parseInt(scanner.nextLine());
+            if (size < 1 || size > 500) {
+                throw new IllegalArgumentException("Error: Number of user IDs must be between 1 and 500");
+            }
+            userIDs = new int[size];
+            for (int i = 0; i < size; i++) {
+                int userID = Integer.parseInt(scanner.nextLine());
+                userIDs[i] = userID;
+            }
+            int index = Integer.parseInt(scanner.nextLine());
+            if (index < 0 || index >= size) {
+                throw new ArrayIndexOutOfBoundsException("Error: Invalid index. Please select a valid index from the list");
+            }
+            System.out.println(userIDs[index]);
+            int newUserID = Integer.parseInt(scanner.nextLine());
+            userIDs[index] = newUserID;
+            System.out.println(userIDs[index]);
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                System.out.println("Error: Please enter valid integer values for user IDs");
+            } else {
+                System.out.println(e.getMessage());
+            }
+        } finally {
+            scanner.close();
+        }
+}
+
+Q=4
+404
+924
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] sales;
+        try {
+            int days = Integer.parseInt(scanner.nextLine());
+            if (days < 1 || days > 30) {
+                throw new IllegalArgumentException("Error: Number of days sales must be between 1 and 30");
+            }
+            sales = new int[days];
+            for (int i = 0; i < days; i++) {
+                int saleAmount = Integer.parseInt(scanner.nextLine());
+                sales[i] = saleAmount; 
+            }
+            int index = Integer.parseInt(scanner.nextLine());
+            if (index < 0 || index >= days) {
+                throw new ArrayIndexOutOfBoundsException("Error: Invalid index. Please provide a valid day number");
+            }
+            System.out.println(sales[index]);
+            int newSaleAmount = Integer.parseInt(scanner.nextLine());
+            sales[index] = newSaleAmount;
+            System.out.println(sales[index]);
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                System.out.println("Error: Please enter valid integer sales amounts");
+            } else {
+                System.out.println(e.getMessage());
+            }
+        } finally {
+            scanner.close();
+        }
+}
+
+Q=5
+7960
+2400
+
+class InvalidTransactionException extends Exception {
+    public InvalidTransactionException(String message) {
+        super(message);
+    }
+}
+
+class CurrencyConversionException extends Exception {
+    public CurrencyConversionException(String message) {
+        super(message);
+    }
+}
+
+class BankAccount {
+    private double balance;
+    private final double dailyConversionLimit = 5000.0; 
+    private final double transactionFeePercentage = 0.03; 
+    
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public void withdrawForeignCurrency(double amountInBaseCurrency, double exchangeRate, double transactionFee)
+            throws InvalidTransactionException, CurrencyConversionException {
+        if (exchangeRate <= 0) {
+            throw new InvalidTransactionException("Exchange rate cannot be zero or negative.");
+        }
+        if (transactionFee > transactionFeePercentage * amountInBaseCurrency) {
+            throw new InvalidTransactionException("Transaction fee exceeds allowable limit.");
+        }
+        
+        double totalWithdrawalAmount = amountInBaseCurrency + transactionFee;
+        if (totalWithdrawalAmount > balance) {
+            System.out.println("Insufficient balance for the withdrawal");
+            return;
+        }
+
+        double amountInForeignCurrency = amountInBaseCurrency * exchangeRate;
+
+        balance -= totalWithdrawalAmount;
+
+        System.out.println(balance);
+        System.out.println(amountInForeignCurrency);
+    }
+}
+
+Q=6
+Remaining balance 
+
+class LoanOverdueException extends Exception {
+    public LoanOverdueException(String message) {
+        super(message);
+    }
+}
+
+class InsufficientFundsForLoanRepaymentException extends Exception {
+    public InsufficientFundsForLoanRepaymentException(String message) {
+        super(message);
+    }
+}
+
+class NegativeLoanRepaymentAmountException extends Exception {
+    public NegativeLoanRepaymentAmountException(String message) {
+        super(message);
+    }
+}
+
+class BankAccount {
+    private double balance;
+    private double loanAmount;
+    private double minLoanRepayment;
+    private int daysOverdue;
+
+    public BankAccount(double initialBalance, double loanAmount, double minLoanRepayment, int daysOverdue) {
+        this.balance = initialBalance;
+        this.loanAmount = loanAmount;
+        this.minLoanRepayment = minLoanRepayment;
+        this.daysOverdue = daysOverdue;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void withdraw(double amount) throws LoanOverdueException, InsufficientFundsForLoanRepaymentException, NegativeLoanRepaymentAmountException {
+        if (daysOverdue > 60) {
+            throw new LoanOverdueException("Loan is overdue by more than 60 days. Immediate payment required.");
+        }
+        if (amount < 0) {
+            throw new NegativeLoanRepaymentAmountException("Loan repayment amount cannot be negative.");
+        }
+        double remainingBalance = balance - amount;
+        double repaymentAmount = minLoanRepayment;
+
+        if (remainingBalance < repaymentAmount) {
+            throw new InsufficientFundsForLoanRepaymentException("Insufficient funds to cover loan repayment after withdrawal.");
+        }
+
+        balance -= amount;
+        balance -= repaymentAmount;
+        loanAmount -= repaymentAmount;
+    }
+
+    public void displayAccountStatus() {
+        System.out.printf("Remaining Balance: %.2f%n", balance);
+        System.out.printf("Remaining Loan Amount: %.2f%n", loanAmount);
+    }
+}
+
+Q=7
+20.0
+5
+
+public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+       try {
+           double price = Double.parseDouble(scanner.nextLine());
+           int quantity = Integer.parseInt(scanner.nextLine());
+      
+           if (price <= 0) {
+               throw new IllegalArgumentException("Invalid Price");
+           }
+
+           if (quantity <= 0) {
+               throw new IllegalArgumentException("Invalid Quantity");
+           }
+
+           double totalCost = price * quantity;
+          
+           if (totalCost > 1000) {
+               throw new RuntimeException("Excessive Cost");
+           }
+ 
+           System.out.printf("%.1f%n", totalCost);
+           
+       } catch (Exception e) {
+           if (e instanceof NumberFormatException) {
+               System.out.println("Invalid input format");
+           } else {
+               System.out.println(e.getMessage());
+           }
+       } finally {
+           scanner.close();
+       }
+   }
+
+Q=8
+EV101
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            
+            String eventId = scanner.nextLine();
+            int totalCapacity = Integer.parseInt(scanner.nextLine());
+        
+            if (totalCapacity < 30 || totalCapacity > 1000) {
+                throw new IllegalArgumentException("Total capacity must be between 30 and 1000");
+            }
+            
+            double generalPrice = Double.parseDouble(scanner.nextLine());
+            double premiumPrice = Double.parseDouble(scanner.nextLine());
+            double vipPrice = Double.parseDouble(scanner.nextLine());
+            
+            if (generalPrice < 50.0 || generalPrice > 500.0 || 
+                premiumPrice < 50.0 || premiumPrice > 500.0 ||
+                vipPrice < 50.0 || vipPrice > 500.0) {
+                throw new IllegalArgumentException("Seat prices must be between 50.0 and 500.0");
+            }
+            
+            int guestCount = Integer.parseInt(scanner.nextLine());
+            String seatCategory = scanner.nextLine();
+            String categoryLower = seatCategory.toLowerCase();
+            
+            if (guestCount <= 0) {
+                throw new IllegalArgumentException("Guest count must be greater than zero.");
+            }
+            
+    
+            if (guestCount > totalCapacity) {
+                throw new RuntimeException("Not enough available seats for the requested reservation.");
+            }
+            
+     
+            double totalCost = 0.0;
+            switch (categoryLower) {
+                case "general":
+                    totalCost = guestCount * generalPrice;
+                    System.out.println("Total cost for " + seatCategory + ": " + totalCost);
+                    break;
+                case "premium":
+                    totalCost = guestCount * premiumPrice;
+                    System.out.println("Total cost for " + seatCategory + ": " + totalCost);
+                    break;
+                case "vip":
+                    totalCost = guestCount * vipPrice;
+                    System.out.println("Total cost for " + seatCategory + ": " + totalCost);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid seat category: " + seatCategory);
+            }
+            
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                System.out.println("Invalid number format in input");
+            } else {
+                System.out.println(e.getMessage());
+            }
+        } finally {
+            scanner.close();
+        }
+    }
+
+Q=9
+2
+1500  30
+5000. 120
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            int testCases = Integer.parseInt(scanner.nextLine());
+            
+            for(int i = 0; i < testCases; i++) {
+                String[] input = scanner.nextLine().split(" ");
+               
+                if (input.length != 2) {
+                    throw new IllegalArgumentException("Input must contain exactly two values");
+                }
+                
+                float distance = Float.parseFloat(input[0]);
+                float time = Float.parseFloat(input[1]);
+     
+                if (distance < 0 || distance > 10000) {
+                    throw new IllegalArgumentException("Distance is out of range");
+                }
+                
+
+                if (time <= 0) {
+                    throw new IllegalArgumentException("Time must be positive");
+                }
+                
+  
+                float speed = distance / time;
+
+                if (speed <= 0) {
+                    throw new IllegalArgumentException("Calculated speed must be greater than zero");
+                }
+
+                System.out.printf("%.2f%n", speed);
+            }
+            
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                String invalidInput = e.getMessage().split(":")[1];
+                System.out.println("Invalid number format: For input string" + invalidInput);
+            } else {
+                System.out.println(e.getMessage());
+            }
+        } finally {
+            scanner.close();
+        }
+    }
+
+Q=10
+2.5
+65.25
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            double radius = scanner.nextDouble();
+
+            double volume = calculateSphereVolume(radius);
+
+            System.out.printf("%.2f" ,volume);
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid input");
+        } finally {
+            scanner.close();
+        }
+    }
+
+private static double calculateSphereVolume(double radius) {
+        return 1.33 * 3.14 * radius * radius * radius;
+    }
+
+Q=11
+-6
+YOU ENTERED. -6
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            int userInput = scanner.nextInt();
+            System.out.println("You entered: " + userInput);
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Please enter a valid input");
+        } finally {
+            scanner.close();
+            System.out.print("Scanner closed in the finally block");
+        }
+}
+
+Q=12
+5
+Element at index 4:  89
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int size = scanner.nextInt();
+
+        int[] numbers = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            numbers[i] = scanner.nextInt();
+        }
+
+        try {
+            int index = scanner.nextInt();
+
+            int result = numbers[index];
+
+            System.out.println("Element at index " + index + ": " + result);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index out of bounds");
+        } finally {
+            scanner.close();
+        }
+   }

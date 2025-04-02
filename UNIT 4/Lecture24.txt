@@ -1,0 +1,176 @@
+Lecture 24
+Q=1
+15
+123432123444556
+
+class DuplicateRemover {
+    interface ArrayProcessor {
+        int[] process(int[] array);
+    }
+    
+    private ArrayProcessor processor;
+    
+    public DuplicateRemover() {
+        this.processor = array -> {
+            if (array.length == 0) {
+                return new int[0];
+            }
+            
+            int uniqueCount = 0;
+            for (int i = 0; i < array.length; i++) {
+                boolean isDuplicate = false;
+                for (int j = 0; j < i; j++) {
+                    if (array[i] == array[j]) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    uniqueCount++;
+                }
+            }
+            
+            int[] result = new int[uniqueCount];
+            int index = 0;
+            for (int i = 0; i < array.length; i++) {
+                boolean isDuplicate = false;
+                for (int j = 0; j < i; j++) {
+                    if (array[i] == array[j]) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    result[index++] = array[i];
+                }
+            }
+            
+            return result;
+        };
+    }
+    
+    public int[] removeDuplicates(int[] array) {
+        return processor.process(array);
+    }
+}
+
+Q=2
+6
+12.0
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int n = scanner.nextInt();
+        
+        double[] measurements = new double[n];
+        for (int i = 0; i < n; i++) {
+            measurements[i] = scanner.nextDouble();
+        }
+
+        DoubleCalculator averageCalculator = values -> {
+            double sum = 0.0;
+            for (double value : values) {
+                sum += value;
+            }
+            return sum / values.length;
+        };
+
+        double result = averageCalculator.calculate(measurements);
+
+        System.out.printf("%.2f%n", result);
+        
+        scanner.close();
+    }
+
+Q=3
+3
+0
+
+class EvenSumCalculator {
+    interface EvenCondition {
+        boolean check(int num);
+    }
+    
+    public int calculateEvenSum(int[] numbers, EvenCondition condition) {
+        int sum = 0;
+        for (int num : numbers) {
+            if (condition.check(num)) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+}
+
+Q=4
+8
+1 64 81 36 25 16 49 9
+
+class Calculator {
+    interface SquareFunction {
+        int square(int x);
+    }
+    
+    private SquareFunction squareFunction;
+    
+    public Calculator() {
+        this.squareFunction = x -> x * x;
+    }
+    
+    public int[] calculateSquares(int[] numbers) {
+        int[] result = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            result[i] = squareFunction.square(numbers[i]);
+        }
+        return result;
+    }
+}
+
+Q=5
+Wizard!!
+
+public class Main {
+interface ReverseStringFunction {
+        String reverse(String input);
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        String reversed = ((ReverseStringFunction) s -> new StringBuilder(s).reverse().toString()).reverse(input);
+
+        System.out.println(reversed);
+
+        scanner.close();
+    }
+
+Q=6
+Cat  dog. Rat
+
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String inputString = scanner.nextLine();
+       
+        String[] words = inputString.split("\\s+");
+        
+
+        StringBuilder result = new StringBuilder();
+        
+        for (String word : words) {
+            if (word.length() <= 3) {
+                result.append("Short ");
+            } else {
+                result.append("Long ");
+            }
+        }
+
+        String finalResult = result.toString();
+        if (!finalResult.isEmpty()) {
+            finalResult = finalResult.substring(0, finalResult.length() - 1);
+        }
+        
+        System.out.println(finalResult);
+        scanner.close();
+    }
