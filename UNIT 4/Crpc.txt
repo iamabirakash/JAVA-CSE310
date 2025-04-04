@@ -1,0 +1,344 @@
+CRPC
+Q=1
+3
+4
+1 2 3 4
+5 6 7 8
+9 5 2 5
+
+import java.util.Scanner;
+
+class MatrixProcessor {
+    
+    static class Matrix {
+        static int[] getColumnSums(int[][] matrix) {
+            int rows = matrix.length;
+            int columns = matrix[0].length;
+            int[] columnSums = new int[columns];
+
+            for (int j = 0; j < columns; j++) {
+                for (int i = 0; i < rows; i++) {
+                    columnSums[j] += matrix[i][j];
+                }
+            }
+
+            return columnSums;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int rows = Integer.parseInt(scanner.nextLine());
+        int columns = Integer.parseInt(scanner.nextLine());
+
+        int[][] matrix = new int[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            String[] rowElements = scanner.nextLine().split(" ");
+            for (int j = 0; j < columns; j++) {
+                matrix[i][j] = Integer.parseInt(rowElements[j]);
+            }
+        }
+
+        int[] columnSums = Matrix.getColumnSums(matrix);
+
+        for (int sum : columnSums) {
+            System.out.print(sum + " ");
+        }
+    }
+}
+
+Q=2
+250 7
+Divisor : 7
+Remainder : 5
+Quotient : 35
+Significance Score : 1
+
+import java.util.Scanner;
+class Outer {
+    private void getValue(int sum, int divisor) {
+
+        class Inner {
+            private int remainder;
+            private int quotient;
+
+            public Inner() {
+                remainder = sum % divisor;
+                quotient = sum / divisor;
+            }
+
+            private int getDivisor() {
+                return divisor;
+            }
+
+            private int getRemainder() {
+                return remainder;
+            }
+
+            private int getQuotient() {
+                return quotient;
+            }
+
+            private int getSignificanceScore() {
+                return (remainder > 0.1 * divisor) ? 1 : 0;
+            }
+        }
+
+        Inner inner = new Inner();
+
+        System.out.println("Divisor : " + inner.getDivisor());
+        System.out.println("Remainder : " + inner.getRemainder());
+        System.out.println("Quotient : " + inner.getQuotient());
+        System.out.println("Significance Score : " + inner.getSignificanceScore());
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int sum = scanner.nextInt();
+        int divisor = scanner.nextInt();
+        scanner.close();
+
+        Outer outer = new Outer();
+        outer.getValue(sum, divisor);
+    }
+}
+
+Q=3
+1.2 -3.2 2.1
+Root 1: 1.5
+Root 2: 1.2
+
+import java.util.Scanner;
+public class Main {
+
+    private static void solveQuadraticEquation(double a, double b, double c) throws IllegalArgumentException {
+    
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0) {
+            throw new IllegalArgumentException("Error: Discriminant is negative. The equation has no real roots.");
+        }
+        double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+        System.out.printf("Root 1: %.1f\n" ,root1);
+        System.out.printf("Root 2: %.1f" ,root2);
+    }
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double a = scanner.nextDouble();
+        double b = scanner.nextDouble();
+        double c = scanner.nextDouble();
+
+        try {
+            solveQuadraticEquation(a, b, c);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+
+Q=4
+5
+120
+
+import java.util.Scanner;
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        
+        try {
+            long permutations = calculatePermutations(n);
+            System.out.print(permutations);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+
+    private static long calculatePermutations(int n) throws IllegalArgumentException {
+        if (n < 0) {
+            throw new IllegalArgumentException("Error: Negative value of N");
+        }
+        long result = 1;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
+
+Q=5
+5
+-8 46 73 12 -96
+IllegalArgumentException: Only positive integers are allowed
+Program executed successfully!
+
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            int N = scanner.nextInt();
+            int[] arr = new int[N];
+        
+            scanner.nextLine(); 
+            String numbers = scanner.nextLine();
+            String[] numStrings = numbers.split(" ");
+        
+            if (numStrings.length > N) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            
+            for (int i = 0; i < N; i++) {
+                int num = Integer.parseInt(numStrings[i]);
+                if (num <= 0) {
+                    throw new IllegalArgumentException();
+                }
+                arr[i] = num;
+            }
+            System.out.print("Array: ");
+            for (int num : arr) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("IllegalArgumentException: Only positive integers are allowed");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ArrayIndexOutOfBoundsException: Input elements exceeds array size");
+        } finally {
+            System.out.println("Program executed successfully!");
+        }
+        
+        scanner.close();
+    }
+}
+
+Q=6
+1234567890123456
+Payment information updated successfully!
+
+import java.util.Scanner;
+
+class InvalidCreditCardException extends Exception {
+    public InvalidCreditCardException(String message) {
+        super(message);
+    }
+}
+
+class CreditCardValidator {
+    public void validateCreditCardNumber(String creditCardNumber) throws InvalidCreditCardException {
+        if (!creditCardNumber.matches("^\\d{16}$")) {
+            if (creditCardNumber.length() != 16) {
+                throw new InvalidCreditCardException("Invalid credit card number length.");
+            } else {
+                throw new InvalidCreditCardException("Invalid credit card number format.");
+            }
+        }
+    }
+}
+
+class CreditCardUpdater {
+    private CreditCardValidator validator = new CreditCardValidator();
+
+    public void updateCreditCard() {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            String creditCardNumber = scanner.nextLine();
+
+            validator.validateCreditCardNumber(creditCardNumber);
+
+            System.out.println("Payment information updated successfully!");
+        } catch (InvalidCreditCardException | java.util.InputMismatchException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        CreditCardUpdater updater = new CreditCardUpdater();
+        updater.updateCreditCard();
+    }
+}
+
+Q=7
+5
+red
+blue
+black
+green
+white
+
+class WordLengthCalculator {
+    public int findMaxLength(String[] words) {
+        return Arrays.stream(words)
+                     .max(Comparator.comparingInt(String::length))
+                     .get()
+                     .length();
+    }
+
+    public int findMinLength(String[] words) {
+        return Arrays.stream(words)
+                     .min(Comparator.comparingInt(String::length))
+                     .get()
+                     .length();
+    }
+}
+
+Q=8
+06 05 2004
+06 05 2004 is a Thursday
+The sum of the digits of your birth date is: 17
+
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.util.Scanner;
+
+class DateUtil {
+    public static String getDayOfWeek(String dateStr) {
+        String[] parts = dateStr.split(" ");  
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+
+        LocalDate date = LocalDate.of(year, month, day); 
+        DayOfWeek dayOfWeek = date.getDayOfWeek(); 
+        return dayOfWeek.toString().charAt(0) + dayOfWeek.toString().substring(1).toLowerCase();
+    }
+    public static int calculateSumOfDigits(String dateStr) {
+        String[] parts = dateStr.split(" ");
+        String date = parts[0] + parts[1] + parts[2]; 
+        
+        int sum = 0;
+        for (char c : date.toCharArray()) {
+            sum += Character.getNumericValue(c); 
+        }
+        return sum;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String date = scanner.nextLine(); 
+        String day = DateUtil.getDayOfWeek(date);
+
+        int sumOfDigits = DateUtil.calculateSumOfDigits(date);
+
+        System.out.println(date + " is a " + day);
+        System.out.println("The sum of the digits of your birth date is: " + sumOfDigits);
+
+        scanner.close();
+    }
+}
