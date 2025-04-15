@@ -14,7 +14,7 @@ public class imagecopy {
             output.close();
             System.err.println("Image Copied");
         } catch (Exception e){
-            e.setStackTrace(null);
+            e.printStackTrace();
         }
     }
 }
