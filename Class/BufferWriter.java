@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+//Try with resource
 public class BufferWriter {
     public static void main(String[] args) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
